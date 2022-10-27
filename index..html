@@ -2,6 +2,13 @@
 <html>
   <head>
     <style>
+      @font-face {
+        font-family: timer;
+        src: url("CursedTimerUlil-Aznm.ttf");
+      }
+      /* * {
+      } */
+
       .flex-container1 {
         display: flex;
       }
@@ -14,6 +21,10 @@
         padding-top: 20px;
         width: 500px;
         height: 50px;
+        font-family: timer;
+        font-size: 30px;
+        border: 10px solid black;
+        border-radius: 10px;
       }
       .flex-container2 {
         display: flex;
@@ -21,26 +32,38 @@
       .flex-container2 > div {
         margin: 20px 20px 0 0;
         font-size: 20px;
-        padding-top: 50px;
+        /* padding-top: 50px; */
         text-align: center;
+        font-family: timer;
       }
       .flex-container2 .skor1 {
         background-color: palevioletred;
         /* margin-left: 40px; */
         height: 100px;
         width: 200px;
+        font-size: 70px;
+        border-radius: 5px;
+        padding-top: 50px;
       }
       .flex-container2 .skor2 {
         background-color: palevioletred;
         /* margin-left: 10px; */
         height: 100px;
         width: 200px;
+        font-size: 70px;
+        border-radius: 5px;
+        padding-top: 50px;
       }
       .flex-container2 .waktu {
         background-color: aqua;
         width: 380px;
         height: 50px;
         margin-top: 50px;
+        font-size: 50px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-radius: 10px;
+
         /* margin-left: 20px; */
       }
       .flex-container3 {
@@ -51,25 +74,32 @@
         font-size: 20px;
         text-align: center;
         padding-top: 20px;
+        font-family: timer;
       }
       .flex-container3 .kuning1 button {
         margin-left: 65px;
         background-color: yellow;
         width: 50px;
         height: 50px;
+        font-size: 20px;
+        border-radius: 10px;
       }
       .flex-container3 .reset button {
         background-color: black;
-        color: aliceblue;
+        color: red;
         margin-left: 180px;
         width: 100px;
         height: 50px;
+        font-family: timer;
+        font-size: 20px;
       }
       .flex-container3 .kuning2 button {
         margin-left: 190px;
         background-color: yellow;
         width: 50px;
         height: 50px;
+        font-size: 20px;
+        border-radius: 10px;
       }
     </style>
   </head>
@@ -82,7 +112,9 @@
         <input type="text" id="tim2" />
         <br />
         <br />
-        <button onclick="">simpan</button>
+        <button style="background-color: yellow; border-radius: 10px">
+          simpan
+        </button>
       </div>
 
       <div class="flex-container1">
@@ -91,7 +123,9 @@
       </div>
       <div class="flex-container2">
         <div class="skor1" id="number1">0</div>
-        <div class="waktu">waktu</div>
+        <div class="waktu">
+          <span id="menit">0</span>:<span id="detik">00</span>
+        </div>
 
         <div class="skor2" id="number2">0</div>
       </div>
@@ -142,6 +176,7 @@
     function myFunction() {
       int.innerHTML = "0";
       int1.innerHTML = "0";
+      menit.innerHTML = "0";
     }
 
     let waktu = document.querySelector(".waktu");
@@ -150,16 +185,27 @@
       setTime();
     }
     var totalSeconds = 0;
+    var totalMinutes = 0;
     setInterval(setTime, 1000);
 
     function setTime() {
       ++totalSeconds;
-      waktu.innerHTML = pad(totalSeconds % 4500);
+      var myTime = pad(totalSeconds % 4500);
+      // detik.innerHTML = pad(totalSeconds % 4500);
+      if (myTime % 60 == 0) {
+        ++totalMinutes;
+        menit.innerHTML = totalMinutes;
+        totalSeconds *= 0;
+      } else {
+        detik.innerHTML = pad(totalSeconds % 4500);
+      }
+
       // waktu.innerHTML = pad(parseInt(totalSeconds / 60));
     }
 
     function pad(val) {
       var valString = val + "";
+      var minute = 0;
       if (valString.length < 2) {
         return "0" + valString;
       } else {
